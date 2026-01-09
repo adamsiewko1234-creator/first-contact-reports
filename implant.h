@@ -13,6 +13,9 @@ typedef enum{
 typedef struct{
     char nazwaImplantu[MAX_DL_NAZWY];
     char idWlasciciela[MAX_DL_ID];
+    char producent[100];
+    int poziomRyzyka;
+    float zapotrzebowanieEnergii;
     StatusLegalnosci legalnoscImplantu;
 }Implant;
 
