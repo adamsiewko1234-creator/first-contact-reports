@@ -1,0 +1,5 @@
+program.exe
+.vscode/
+*.jpg
+*.webp
+*.o
