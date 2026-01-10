@@ -1,10 +1,10 @@
 #include "plik.h"
 #include <stdio.h>
 
-void zapisanieDoPliku(const ListaImplantow *lista, const char *plikImplanty){
-    FILE *plik = fopen(plikImplanty.txt, "w");
+void zapisanieDoPliku(const ListaImplantow *lista, const char *nazwaPliku){
+    FILE *plik = fopen(nazwaPliku, "w");
     if(!plik){
-        printf("Przy zapisywaniu do pliku wystapil blad.\n");
+        printf("Przy zapisywaniu do pliku: %s wystapil blad.\n", nazwaPliku);
         return;
     }
 
@@ -12,21 +12,22 @@ void zapisanieDoPliku(const ListaImplantow *lista, const char *plikImplanty){
     while(element){
         fprintf(plik, "%s; %s; %s; %d; %.2f; %d\n", 
         element -> implant.nazwaImplantu,
+        element -> implant.idWlasciciela,
         element -> implant.producent,
         element -> implant.poziomRyzyka,
         element -> implant.zapotrzebowanieEnergii,
-        element -> implant.legalnoscImplantu,
-        element -> implant.idWlasciciela,
+        element -> implant.legalnoscImplantu
         );
         element = element -> kolejny;
     }
     fclose(plik);
+    printf("Pomyslnie zapisano dane do pliku: %s.\n", nazwaPliku)
 }
 
-void wczytanieZPliku(ListaImplantow *lista, const char *plikImplanty){
-    FILE *plik = fopen(plikImplanty.txt, "r");
+void wczytanieZPliku(ListaImplantow *lista, const char *nazwaPliku){
+    FILE *plik = fopen(nazwaPliku, "r");
     if(!plik){
-        printf("Wystapil blad przy odczycie danych z pliku.\n");
+        printf("Wystapil blad przy odczycie danych z pliku: %s.\n", nazwaPliku);
         return;
     }
 
@@ -48,5 +49,5 @@ void wczytanieZPliku(ListaImplantow *lista, const char *plikImplanty){
         dodawanieImplantu(lista, tymczasowy);
     }
     fclose(plik);
-    printf("Pomyslnie wczytano dane z pliku. \n");
+    printf("Pomyslnie wczytano dane z pliku: %s.\n", nazwaPliku);
 }
