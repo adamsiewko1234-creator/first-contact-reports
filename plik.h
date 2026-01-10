@@ -3,7 +3,7 @@
 
 #include "listaImplantow.h"
 
-void zapisanieDoPliku(const ListaImplantow *lista, const char *nazwaPliku);
-void wczytanieDoPliku(ListaImplantow *lista, const char *nazwaPliku);
+void zapisanieDoPliku(const ListaImplantow *lista, const char *plikImplanty);
+void wczytanieZPliku(ListaImplantow *lista, const char *plikImplanty);
 
 #endif
