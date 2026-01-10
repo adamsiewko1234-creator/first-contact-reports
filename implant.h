@@ -3,6 +3,7 @@
 
 #define MAX_DL_NAZWY 100
 #define MAX_DL_ID 50
+#define MAX_DL_PROD 100
 
 typedef enum{
     LEGALNY = 1,
@@ -13,7 +14,7 @@ typedef enum{
 typedef struct{
     char nazwaImplantu[MAX_DL_NAZWY];
     char idWlasciciela[MAX_DL_ID];
-    char producent[100];
+    char producent[MAX_DL_PROD];
     int poziomRyzyka;
     float zapotrzebowanieEnergii;
     StatusLegalnosci legalnoscImplantu;

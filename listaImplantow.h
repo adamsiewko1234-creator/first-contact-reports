@@ -1,5 +1,6 @@
 #ifndef LISTA_IMPLANTOW_H
 #define LISTA_IMPLANTOW_H
+
 #include "implant.h"
 
 typedef struct ElementListy{
@@ -10,5 +11,10 @@ typedef struct ElementListy{
 typedef struct{
     ElementListy *elementPierwszy;
 }ListaImplantow;
+
+void tworzenieListy(ListaImplantow *lista);
+void dodawanieImplantu(ListaImplantow *lista, Implant implant);
+void wyswietlanieListy(const ListaImplantow *lista);
+void zwolnienieListy(ListaImplantow *lista);
 
 #endif
