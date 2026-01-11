@@ -67,7 +67,7 @@ int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
                 printf("Wprowadzono bledna wartosc, podaj liczbe: \n");
                 while(getchar() != '\n');
             }
-
+        
             int stat;
             do{
                 printf("Status implantu: (1-LEGALNY, 2-SZARA STREFA, 3-NIELEGALNY): \n");
@@ -81,5 +81,32 @@ int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
         aktualny = aktualny -> kolejny;
     }
     printf("Brak implantow do edycji.\n");
+    return 0;
+}
+
+int usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
+    ElementListy *aktualny = lista -> elementPierwszy;
+    ElementListy *poprzedni = NULL;
+
+    while(aktualny){
+         if(strcmp(aktualny -> implant.nazwaImplantu, nazwa) == 0 && strcmp(aktualny -> implant.idWlasciciela, id) == 0){
+            if(aktualny -> implant.legalnoscImplantu == NIELEGALNY){
+                printf("Implant jest nielegalny i nie mozna go usunac.\n");
+                return 0;
+            }
+            if(poprzedni){
+                poprzedni -> kolejny = aktualny -> kolejny;
+            }
+            else{
+                 lista -> elementPierwszy = aktualny -> kolejny;
+            }
+            free(aktualny);
+            printf("Usunieto implant.\n");
+            return 1;
+        }
+        poprzedni = aktualny;
+        aktualny = aktualny -> kolejny;
+    }
+    printf("Brak Implantow.\n");
     return 0;
 }

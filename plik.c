@@ -21,7 +21,7 @@ void zapisanieDoPliku(const ListaImplantow *lista, const char *nazwaPliku){
         element = element -> kolejny;
     }
     fclose(plik);
-    printf("Pomyslnie zapisano dane do pliku: %s.\n", nazwaPliku)
+    printf("Pomyslnie zapisano dane do pliku: %s.\n", nazwaPliku);
 }
 
 void wczytanieZPliku(ListaImplantow *lista, const char *nazwaPliku){

@@ -16,6 +16,7 @@ void tworzenieListy(ListaImplantow *lista);
 void dodawanieImplantu(ListaImplantow *lista, Implant implant);
 void wyswietlanieListy(const ListaImplantow *lista);
 void zwolnienieListy(ListaImplantow *lista);
-void edyjaImplantu(const char *nazwa, const char *id);
+void edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
+void usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
 
 #endif
