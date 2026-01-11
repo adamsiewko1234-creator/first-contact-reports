@@ -1,6 +1,7 @@
 #include "listaImplantow.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void tworzenieListy(ListaImplantow *lista){
     lista -> elementPierwszy = NULL;
@@ -42,4 +43,43 @@ void zwolnienieListy(ListaImplantow *lista){
         lista -> elementPierwszy = tymczasowy -> kolejny;
         free(tymczasowy);
     }
+}
+
+int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
+    ElementListy *aktualny = lista -> elementPierwszy;
+
+    while(aktualny){
+        if(strcmp(aktualny -> implant.nazwaImplantu, nazwa) == 0 && strcmp(aktualny -> implant.idWlasciciela, id) == 0){
+            printf("Edycja nazwy implantu oraz id wlasciciela nie jest mozliwa.\n");
+            printf("Wprowadz nowe dane: \n");
+
+            printf("Producent: \n");
+            fgets(aktualny -> implant.producent, MAX_DL_PROD, stdin);
+
+            printf("Poziom ryzyka(1-10): \n");
+            while(scanf("%d", &aktualny -> implant.poziomRyzyka) !=1 ||  aktualny -> implant.poziomRyzyka < 1 ||  aktualny -> implant.poziomRyzyka > 10){
+                printf("Wprowadzono bledna wartosc, wprowac liczcby z zakresu 1-10:");
+                while(getchar() != '\n'); 
+            }
+
+            printf("Zapotrzebowanie energii: \n");
+            while(scanf("%f", &aktualny -> implant.zapotrzebowanieEnergii) != 1){
+                printf("Wprowadzono bledna wartosc, podaj liczbe: \n");
+                while(getchar() != '\n');
+            }
+
+            int stat;
+            do{
+                printf("Status implantu: (1-LEGALNY, 2-SZARA STREFA, 3-NIELEGALNY): \n");
+                scanf("%d", &stat);
+                while(getchar() != '\n');
+            }while(stat < 1 || stat > 3);
+
+            aktualny -> implant.legalnoscImplantu = (StatusLegalnosci)stat;
+            return 1;  
+        }
+        aktualny = aktualny -> kolejny;
+    }
+    printf("Brak implantow do edycji.\n");
+    return 0;
 }
