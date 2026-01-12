@@ -1,5 +1,6 @@
 #include "plik.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void zapisanieDoPliku(const ListaImplantow *lista, const char *nazwaPliku){
     FILE *plik = fopen(nazwaPliku, "w");
@@ -36,7 +37,7 @@ void wczytanieZPliku(ListaImplantow *lista, const char *nazwaPliku){
 
     Implant tymczasowy;
     int status;
-    int ile;
+    int ile = 0;
 
     while(fscanf(plik, "%99[^;];%49[^;];%99[^;];%d;%f;%d\n",
         tymczasowy.nazwaImplantu,

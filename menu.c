@@ -151,12 +151,10 @@ void uruchamianieMenu(const char *nazwaPliku){
 
             case 11:
                 wczytanieZPliku(&lista, nazwaPliku);
-                printf("Wczytano z pliku tekstowego.\n");
                 break;
             
             case 12:
                 zapisanieDoPliku(&lista, nazwaPliku);
-                printf("Zapisano do pliku tekstowego.\n");
                 break;
 
             case 0:
