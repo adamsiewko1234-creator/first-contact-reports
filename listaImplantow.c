@@ -59,7 +59,7 @@ int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
 
             printf("Poziom ryzyka(0-10): \n");
             while(scanf("%d", &aktualny -> implant.poziomRyzyka) !=1 ||  aktualny -> implant.poziomRyzyka < 0 ||  aktualny -> implant.poziomRyzyka > 10){
-                printf("Wprowadzono bledna wartosc, wprowac liczcby z zakresu 1-10:");
+                printf("Wprowadzono bledna wartosc, wprowac liczcby z zakresu 1-10: \n");
                 while(getchar() != '\n'); 
             }
 
@@ -112,6 +112,29 @@ int usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
     return 0;
 }
 
+void wyszukaniePoNazwie(const ListaImplantow *lista, const char *nazwa){
+
+    ElementListy *aktualny = lista -> elementPierwszy;
+    int znaleziony = 0;
+
+    while(aktualny){
+        if(strcmp(aktualny -> implant.nazwaImplantu, nazwa) == 0 ){
+        printf("Wyszukany implant:\n");
+        printf("Nazwa: %s, ", aktualny -> implant.nazwaImplantu);
+        printf("ID: %s, ", aktualny-> implant.idWlasciciela);
+        printf("Producent: %s, ", aktualny -> implant.producent);
+        printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
+        printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
+        printf("Status legalnosci: %d\n\n", aktualny-> implant.legalnoscImplantu);
+        znaleziony = 1;
+        }
+        aktualny = aktualny -> kolejny;
+    }
+    if(!znaleziony){
+        printf("Brak implantow o podanej nazwie.\n");
+    }
+}
+
 void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyProducent){
     ElementListy *aktualny = lista -> elementPierwszy;
     int znaleziony = 0;
@@ -119,14 +142,15 @@ void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyPro
     while(aktualny){
         if(strcmp(aktualny -> implant.producent, szukanyProducent) == 0 ){
         printf("Nazwa: %s, ", aktualny -> implant.nazwaImplantu);
+        printf("ID: %s, ", aktualny-> implant.idWlasciciela);
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d, ", aktualny-> implant.legalnoscImplantu);
-        printf("ID: %s \n\n", aktualny-> implant.idWlasciciela);
+        printf("Status legalnosci: %d\n\n", aktualny-> implant.legalnoscImplantu);
+        
         znaleziony = 1;
         }
-        aktualny -> kolejny;
+        aktualny = aktualny -> kolejny;
     }
     if(!znaleziony){
         printf("Brak implantow danego producenta.\n");
@@ -140,21 +164,22 @@ void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka){
         while(aktualny){
         if(aktualny -> implant.poziomRyzyka == poziomRyzyka){
         printf("Nazwa: %s, ", aktualny -> implant.nazwaImplantu);
+        printf("ID: %s, ", aktualny-> implant.idWlasciciela);
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d, ", aktualny-> implant.legalnoscImplantu);
-        printf("ID: %s \n\n", aktualny-> implant.idWlasciciela);
+        printf("Status legalnosci: %d \n\n, ", aktualny-> implant.legalnoscImplantu);
+
         znaleziony = 1;
         }
-        aktualny -> kolejny;
+        aktualny = aktualny -> kolejny;
     }
     if(!znaleziony){
     printf("Brak implantow o wpisanym poziomie ryzyka.\n");
     }
 }
 
-void sotrowaniePoNazwie(ListaImplantow *lista){
+void sortowaniePoNazwie(ListaImplantow *lista){
     if(!lista ->elementPierwszy){
         return;
     }
@@ -178,10 +203,10 @@ void sotrowaniePoNazwie(ListaImplantow *lista){
             a = a -> kolejny;
         }
     }while(przestawienie);
-    printf("Posortowano liste alfabrtycznie po nazwie.\n");
+    printf("Posortowano liste alfabetycznie po nazwie.\n");
 }
 
-void sotrowaniePoId(const ListaImplantow *lista){
+void sortowaniePoId(ListaImplantow *lista){
         if(!lista ->elementPierwszy){
         return;
     }
@@ -207,7 +232,7 @@ void sotrowaniePoId(const ListaImplantow *lista){
     printf("Posortowano liste po ID.\n");
 }
 
-void sotrowaniePoRyzyku(const ListaImplantow *lista){
+void sortowaniePoRyzyku(ListaImplantow *lista){
     if(!lista ->elementPierwszy){
     return;
     }
