@@ -30,7 +30,7 @@ void wyswietlanieListy(const ListaImplantow *lista){
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d, ", aktualny-> implant.legalnoscImplantu);
+        printf("Status legalnosci: %s, ", zamianaNaTekst(aktualny-> implant.legalnoscImplantu));
         printf("ID: %s \n\n", aktualny-> implant.idWlasciciela);
 
         aktualny = aktualny -> kolejny;
@@ -125,7 +125,7 @@ void wyszukaniePoNazwie(const ListaImplantow *lista, const char *nazwa){
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d\n\n", aktualny-> implant.legalnoscImplantu);
+        printf("Status legalnosci: %s\n\n", zamianaNaTekst(aktualny-> implant.legalnoscImplantu));
         znaleziony = 1;
         }
         aktualny = aktualny -> kolejny;
@@ -146,7 +146,7 @@ void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyPro
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d\n\n", aktualny-> implant.legalnoscImplantu);
+        printf("Status legalnosci: %s\n\n", zamianaNaTekst(aktualny-> implant.legalnoscImplantu));
         
         znaleziony = 1;
         }
@@ -168,7 +168,7 @@ void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka){
         printf("Producent: %s, ", aktualny -> implant.producent);
         printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
         printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
-        printf("Status legalnosci: %d \n\n, ", aktualny-> implant.legalnoscImplantu);
+        printf("Status legalnosci: %s\n\n", zamianaNaTekst(aktualny-> implant.legalnoscImplantu));
 
         znaleziony = 1;
         }
@@ -203,7 +203,7 @@ void sortowaniePoNazwie(ListaImplantow *lista){
             a = a -> kolejny;
         }
     }while(przestawienie);
-    printf("Posortowano liste alfabetycznie po nazwie.\n");
+    printf("Posortowano liste alfabretycznie po nazwie.\n");
 }
 
 void sortowaniePoId(ListaImplantow *lista){
@@ -256,4 +256,13 @@ void sortowaniePoRyzyku(ListaImplantow *lista){
         }
     }while(przestawienie);
     printf("Posortowano liste po poziomie ryzyka.\n");
+}
+
+const char *zamianaNaTekst(StatusLegalnosci status){
+    switch(status){
+        case LEGALNY: return "LEGALNY";
+        case SZARA_STREFA: return "SZARA_STREFA";
+        case NIELEGALNY: return "NIELEGALNY";
+        default: return "NIEZNANY";
+    }
 }

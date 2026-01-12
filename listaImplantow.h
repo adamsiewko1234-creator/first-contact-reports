@@ -24,4 +24,7 @@ void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka);
 void sortowaniePoNazwie(ListaImplantow *lista);
 void sortowaniePoId(ListaImplantow *lista);
 void sortowaniePoRyzyku(ListaImplantow *lista);
+
+const char *zamianaNaTekst(StatusLegalnosci status);
+
 #endif

@@ -10,7 +10,7 @@ void zapisanieDoPliku(const ListaImplantow *lista, const char *nazwaPliku){
 
     ElementListy *element = lista -> elementPierwszy;
     while(element){
-        fprintf(plik, "%s; %s; %s; %d; %.2f; %d\n", 
+        fprintf(plik, "%s;%s;%s;%d;%.2f;%d\n", 
         element -> implant.nazwaImplantu,
         element -> implant.idWlasciciela,
         element -> implant.producent,
@@ -36,6 +36,7 @@ void wczytanieZPliku(ListaImplantow *lista, const char *nazwaPliku){
 
     Implant tymczasowy;
     int status;
+    int ile;
 
     while(fscanf(plik, "%99[^;];%49[^;];%99[^;];%d;%f;%d\n",
         tymczasowy.nazwaImplantu,
@@ -45,9 +46,22 @@ void wczytanieZPliku(ListaImplantow *lista, const char *nazwaPliku){
         &tymczasowy.zapotrzebowanieEnergii,
         &status
     ) == 6){
+
         tymczasowy.legalnoscImplantu = (StatusLegalnosci)status;
         dodawanieImplantu(lista, tymczasowy);
+        ile++;
     }
+
+    if(!feof(plik)){
+        printf("Plik zawiera niepoprawne dane.\n");
+    }
+
     fclose(plik);
+
+    if(ile == 0){
+        printf("Brak implantow w pliku.\n");
+    }
+    else{
     printf("Pomyslnie wczytano dane z pliku: %s.\n", nazwaPliku);
+    }
 }
