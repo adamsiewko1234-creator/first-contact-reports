@@ -20,5 +20,7 @@ int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
 int usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
 void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyProducent);
 void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka);
-
+void sotrowaniePoNazwie(const ListaImplantow *lista);
+void sotrowaniePoId(const ListaImplantow *lista);
+void sotrowaniePoRyzyku(const ListaImplantow *lista);
 #endif

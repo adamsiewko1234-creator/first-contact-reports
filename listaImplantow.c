@@ -153,3 +153,82 @@ void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka){
     printf("Brak implantow o wpisanym poziomie ryzyka.\n");
     }
 }
+
+void sotrowaniePoNazwie(ListaImplantow *lista){
+    if(!lista ->elementPierwszy){
+        return;
+    }
+    int przestawienie;
+    ElementListy *a;
+    ElementListy *b;
+    Implant tymczasowy;
+    
+    do{
+        przestawienie = 0;
+        a = lista ->elementPierwszy;
+
+        while(a -> kolejny){
+            b = a -> kolejny;
+            if(strcmp(a -> implant.nazwaImplantu, b -> implant.nazwaImplantu) > 0){
+                tymczasowy = a -> implant;
+                a -> implant = b -> implant;
+                b -> implant = tymczasowy;
+                przestawienie = 1;
+            }
+            a = a -> kolejny;
+        }
+    }while(przestawienie);
+    printf("Posortowano liste alfabrtycznie po nazwie.\n");
+}
+
+void sotrowaniePoId(const ListaImplantow *lista){
+        if(!lista ->elementPierwszy){
+        return;
+    }
+    int przestawienie;
+    ElementListy *a;
+    Implant tymczasowy;
+    
+    do{
+        przestawienie = 0;
+        a = lista ->elementPierwszy;
+
+        while(a -> kolejny){
+
+            if(strcmp(a -> implant.idWlasciciela, a -> kolejny -> implant.idWlasciciela) > 0){
+                tymczasowy = a -> implant;
+                a -> implant = a -> kolejny -> implant;
+                a -> kolejny -> implant = tymczasowy;
+                przestawienie = 1;
+            }
+            a = a -> kolejny;
+        }
+    }while(przestawienie);
+    printf("Posortowano liste po ID.\n");
+}
+
+void sotrowaniePoRyzyku(const ListaImplantow *lista){
+    if(!lista ->elementPierwszy){
+    return;
+    }
+    int przestawienie;
+    ElementListy *a;
+    Implant tymczasowy;
+    
+    do{
+        przestawienie = 0;
+        a = lista ->elementPierwszy;
+
+        while(a -> kolejny){
+
+            if(a -> implant.poziomRyzyka > a -> kolejny -> implant.poziomRyzyka){
+                tymczasowy = a -> implant;
+                a -> implant = a -> kolejny -> implant;
+                a -> kolejny -> implant = tymczasowy;
+                przestawienie = 1;
+            }
+            a = a -> kolejny;
+        }
+    }while(przestawienie);
+    printf("Posortowano liste po poziomie ryzyka.\n");
+}
