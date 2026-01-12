@@ -1,21 +1,23 @@
 #include "menu.h"
 #include "listaImplantow.h" 
 #include "plik.h"
+#include "implant.h"
 #include <stdio.h>
 
-void uruchamianieMenu(cosnt char *nazwaPliku){
+void uruchamianieMenu(const char *nazwaPliku){
     ListaImplantow lista;
     tworzenieListy(&lista);
 
     int wybor;
     do{
-        printf("Menu Rejestru Implantow: \n\n");
+        printf("Menu Rejestru Ulepszen Cybernetycznych Obywateli: \n\n");
         printf("1. Dodaj nowy implant\n");
         printf("2. Wyswietl liste implantow\n");
         printf("3. Szukaj implantu\n");
         printf("4. Edytuj implant\n");
         printf("5. Usun implant\n");
         printf("6. Zapisz do pliku\n");
+        printf("7. Wczytaj z pliku\n");
         printf("0. Zakoncz dzialanie programu\n");
         scanf("%d", &wybor);
         while(getchar() != '\n');
@@ -25,17 +27,28 @@ void uruchamianieMenu(cosnt char *nazwaPliku){
 
                 Implant x;
                 printf("Nazwa: "); 
-                fgets(x.nazwaImplantu, 100, stdin);
+                fgets(x.nazwaImplantu, MAX_DL_NAZWY, stdin);
+                x.nazwaImplantu[strcspn(x.nazwaImplantu, "\n")] = '\0';
                 printf("ID: ");
-                fgets(x.idWlasciciela, 50, stdin);
+                fgets(x.idWlasciciela, MAX_DL_ID, stdin);
+                x.idWlasciciela[strcspn(x.idWlasciciela, "\n")] = '\0';
                 printf("Producent: ");
                 fgets(x.producent, 100, stdin);
-                printf("Poziom ryzyka: ");
+                x.producent[strcspn(x.producent, "\n")] = '\0';
+                printf("Poziom ryzyka (0-10): ");
                 scanf("%d", &x.poziomRyzyka);
+                while(getchar() != '\n');
                 printf("Ilosc energii: ");
-                sccanf("%f", &x.zapotrzebowanieEnergii);
-                printf("Status legalnosci: ");
-                scanf("%d", (int*)&x.legalnoscImplantu);
+                scanf("%f", &x.zapotrzebowanieEnergii);
+                while(getchar() != '\n');
+                int stat;
+                do{
+                    printf("Status legalnosci: (1-LEGALNY, 2-SZARA STREFA, 3-NIELEGALNY): \n");
+                    scanf("%d", &stat);
+                    while(getchar() != '\n');
+                }while(stat < 1 || stat > 3);
+                x.legalnoscImplantu = (StatusLegalnosci)stat;
+                
                 dodawanieImplantu(&lista, x);
                 break;
 
@@ -47,11 +60,14 @@ void uruchamianieMenu(cosnt char *nazwaPliku){
                 char t[MAX_DL_NAZWY];
                 char id[MAX_DL_ID];
 
-                printf("Nazwa: ");
+                printf("Nazwa implantu: ");
                 fgets(t, MAX_DL_NAZWY, stdin);
-                printf("ID: ");
+                t[strcspn(t, "\n")] = '\0';
+                printf("ID wlasciciela: ");
                 fgets(id, MAX_DL_ID, stdin);
-                edyjaImplantu(&lista, t, id);
+                id[strcspn(id, "\n")] = '\0';
+
+                edycjaImplantu(&lista, t, id);
                 break;
 
             case 4:
@@ -62,6 +78,22 @@ void uruchamianieMenu(cosnt char *nazwaPliku){
             case 5:
                 wczytanieZPliku(&lista, nazwaPliku);
                 printf("Wczytano z pliku tekstowego.\n");
+                break;
+
+            case 6:
+
+                printf("Nazwa implantu: ");
+                fgets(t, MAX_DL_NAZWY, stdin);
+                t[strcspn(t, "\n")] = '\0';
+                printf("ID wlasciciela: ");
+                fgets(id, MAX_DL_ID, stdin);
+                id[strcspn(id, "\n")] = '\0';
+
+                usuwanieImplantu(&lista, t, id);
+                break;
+
+            case 0:
+                printf("Wylaczanie programu.\n");
                 break;
 
             default:
