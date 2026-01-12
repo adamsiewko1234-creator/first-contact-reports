@@ -54,10 +54,11 @@ int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
             printf("Wprowadz nowe dane: \n");
 
             printf("Producent: \n");
+            while(getchar() != '\n');
             fgets(aktualny -> implant.producent, MAX_DL_PROD, stdin);
 
-            printf("Poziom ryzyka(1-10): \n");
-            while(scanf("%d", &aktualny -> implant.poziomRyzyka) !=1 ||  aktualny -> implant.poziomRyzyka < 1 ||  aktualny -> implant.poziomRyzyka > 10){
+            printf("Poziom ryzyka(0-10): \n");
+            while(scanf("%d", &aktualny -> implant.poziomRyzyka) !=1 ||  aktualny -> implant.poziomRyzyka < 0 ||  aktualny -> implant.poziomRyzyka > 10){
                 printf("Wprowadzono bledna wartosc, wprowac liczcby z zakresu 1-10:");
                 while(getchar() != '\n'); 
             }
@@ -107,6 +108,48 @@ int usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id){
         poprzedni = aktualny;
         aktualny = aktualny -> kolejny;
     }
-    printf("Brak Implantow.\n");
+    printf("Brak Implantow o podanej nazwie i ID.\n");
     return 0;
+}
+
+void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyProducent){
+    ElementListy *aktualny = lista -> elementPierwszy;
+    int znaleziony = 0;
+
+    while(aktualny){
+        if(strcmp(aktualny -> implant.producent, szukanyProducent) == 0 ){
+        printf("Nazwa: %s, ", aktualny -> implant.nazwaImplantu);
+        printf("Producent: %s, ", aktualny -> implant.producent);
+        printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
+        printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
+        printf("Status legalnosci: %d, ", aktualny-> implant.legalnoscImplantu);
+        printf("ID: %s \n\n", aktualny-> implant.idWlasciciela);
+        znaleziony = 1;
+        }
+        aktualny -> kolejny;
+    }
+    if(!znaleziony){
+        printf("Brak implantow danego producenta.\n");
+    }
+}
+
+void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka){
+
+    ElementListy *aktualny = lista -> elementPierwszy;
+    int znaleziony = 0;
+        while(aktualny){
+        if(aktualny -> implant.poziomRyzyka == poziomRyzyka){
+        printf("Nazwa: %s, ", aktualny -> implant.nazwaImplantu);
+        printf("Producent: %s, ", aktualny -> implant.producent);
+        printf("Poziom ryzyka: %d, ", aktualny -> implant.poziomRyzyka);
+        printf("Zapotrzebowanie energii: %.2f, ", aktualny -> implant.zapotrzebowanieEnergii);
+        printf("Status legalnosci: %d, ", aktualny-> implant.legalnoscImplantu);
+        printf("ID: %s \n\n", aktualny-> implant.idWlasciciela);
+        znaleziony = 1;
+        }
+        aktualny -> kolejny;
+    }
+    if(!znaleziony){
+    printf("Brak implantow o wpisanym poziomie ryzyka.\n");
+    }
 }

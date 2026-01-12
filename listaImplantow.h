@@ -16,7 +16,9 @@ void tworzenieListy(ListaImplantow *lista);
 void dodawanieImplantu(ListaImplantow *lista, Implant implant);
 void wyswietlanieListy(const ListaImplantow *lista);
 void zwolnienieListy(ListaImplantow *lista);
-void edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
-void usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
+int edycjaImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
+int usuwanieImplantu(ListaImplantow *lista, const char *nazwa, const char *id);
+void wyszukaniePoProducencie(const ListaImplantow *lista, const char *szukanyProducent);
+void wyszukaniePoRyzyku(const ListaImplantow *lista, int poziomRyzyka);
 
 #endif
